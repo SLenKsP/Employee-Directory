@@ -1,24 +1,27 @@
 import React from "react";
 import Moment from "moment";
 
+// 
 function DataTable (props) {
-    function forName (name) {
+    // function to return name
+    function name (name) {
         return `${ name.first } ${ name.last }`;
     };
-
-    function forKey (id) {
+    // function to return id
+    function id (id) {
         return `${ id.value }`
     }
-
-    function forImage (picture) {
+    // function to return image source
+    function image (picture) {
         return `${ picture.large }`
     };
-    function forDob (dob) {
+    // function to return dob with format
+    function dob (dob) {
         const birth = `${ dob.date }`;
         const birthDate = Moment(birth).format('DD-MM-YYYY');
         return birthDate;
     };
-
+    // return datatable
     return (
         <table className="table table-striped">
             <thead>
@@ -32,12 +35,12 @@ function DataTable (props) {
             </thead>
                 <tbody>
                     { props.employees.map(employee => (
-                        <tr key={ forKey(employee.id) }>
-                            <td><img alt="employee" src={ forImage(employee.picture) } /></td>
-                            <td>{ forName(employee.name) }</td>
+                        <tr key={ id(employee.id) }>
+                            <td><img alt="employee" src={ image(employee.picture) } /></td>
+                            <td>{ name(employee.name) }</td>
                             <td>{ employee.phone }</td>
                             <td>{ employee.email }</td>
-                            <td>{ forDob(employee.dob) }</td>
+                            <td>{ dob(employee.dob) }</td>
                         </tr>
                     )) }
                 </tbody>

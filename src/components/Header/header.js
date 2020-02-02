@@ -1,5 +1,6 @@
 import React from "react";
 
+// function that export header section
 function Header () {
     return (
         <div className="jumbotron jumbotron-fluid text-center">

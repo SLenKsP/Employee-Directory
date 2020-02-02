@@ -3,12 +3,13 @@ import API from '../utils/API';
 import DataTable from "../components/EmployeeTable/table";
 import SearchForm from "../components/SearchForm/search";
 
+// function to sort employee data by name
 const dataSort = {
     byName (a, b) {
         return a.fullName > b.fullName ? 1 : -1;
     }
 }
-
+// 
 class Main extends Component {
     state = {
         employees: [],
@@ -17,7 +18,7 @@ class Main extends Component {
         sortAscending: true,
         sortBy: "byName"
     };
-
+    // getting that data from API
     componentDidMount () {
         API.getEmployeeData().then(res => {
             console.log(res.data);
@@ -34,6 +35,7 @@ class Main extends Component {
             console.log(this.state);
         }).catch(err => console.log(err));
     };
+    // handling input change where when user types that name only related names are displayed
     handleInputChange = event => {
         this.setState({
             ...this.state,
@@ -41,8 +43,8 @@ class Main extends Component {
         });
         console.log(this.state.search);
     };
-
-    handleSort_asc = () => {
+    // function to sort names by ascending order
+    sortByAscendingOrder = () => {
         let listName = this.state.employees.sort(dataSort[ this.state.sortBy ]);
         if (this.state.sortAscending)
         {
@@ -56,7 +58,8 @@ class Main extends Component {
             });
         }
     };
-    handleSort_desc = () => {
+    // function to sort names by descending order
+    sortByDescendingOrder = () => {
         let listName = this.state.employees.sort(dataSort[ this.state.sortBy ]);
         if (this.state.sortAscending)
         {
@@ -70,18 +73,18 @@ class Main extends Component {
             });
         }
     };
-
+    // rendering employee details to data table
     render () {
-        const list = this.state.employees.filter(employee => {
-            return employee.searchable.includes(this.state.search);
+        const employeeList = this.state.employees.filter(item => {
+            return item.searchable.includes(this.state.search);
         });
         return (
             <>
                 <SearchForm handleInputChange={ this.handleInputChange } />
                 <DataTable
-                    employees={ list }
-                    handleSort_asc={ this.handleSort_asc }
-                    handleSort_desc={ this.handleSort_desc }
+                    employees={ employeeList }
+                    handleSort_asc={ this.sortByAscendingOrder }
+                    handleSort_desc={ this.sortByDescendingOrder }
                 />
             </>
         )

@@ -3,12 +3,13 @@ import Main from "./Pages/main";
 import Header from './components/Header/header';
 import Container from "./components/Container/container";
 
-function App() {
+// function that returns app structure
+function App () {
     return (
         <div>
-            <Header/>
+            <Header />
             <Container>
-                <Main/>
+                <Main />
             </Container>
         </div>
     )
